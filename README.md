@@ -289,7 +289,7 @@ JWT = jwt-secret-or-private-key
 ### Register New User
 **Endpoint:** `/api/auth/register`  
 **Method:** `POST`  
-**Description:** Register new users.
+**Description:** Register new users.  
 **Request Body:**
 ```json
 {
@@ -302,7 +302,7 @@ JWT = jwt-secret-or-private-key
 ### User Login
 **Endpoint:** `/api/auth/login`  
 **Method:** `POST`  
-**Description:** User login by providing username and password.
+**Description:** User login by providing username and password.  
 **Request Body:**
 ```json
 {
