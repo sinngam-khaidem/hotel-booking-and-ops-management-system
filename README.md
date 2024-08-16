@@ -133,7 +133,7 @@ JWT = jwt-secret-or-private-key
 ### Create a Hotel
 **Endpoint:** `/api/hotels`  
 **Method:** `POST`  
-**Description:** Create a new hotel. Admin access required.
+**Description:** Create a new hotel. Admin access required. 
 **Request Body:**
 ```json
 {
@@ -161,7 +161,7 @@ JWT = jwt-secret-or-private-key
 ### Update Hotel by ID
 **Endpoint:** `/api/hotels/{id}`  
 **Method:** `PUT`  
-**Description:** Update hotel information by ID. Admin access required.
+**Description:** Update hotel information by ID. Admin access required. 
 **Request Body:**
 ```json
 {
@@ -206,7 +206,7 @@ JWT = jwt-secret-or-private-key
 ### Create a Room
 **Endpoint:** `/api/rooms/{hotelid}`  
 **Method:** `POST`  
-**Description:** Create a new room by specifying hotel ID. Admin access required.
+**Description:** Create a new room by specifying hotel ID. Admin access required. 
 **Request Body:**
 ```json
 {
@@ -230,7 +230,7 @@ JWT = jwt-secret-or-private-key
 ### Update a Room
 **Endpoint:** `/api/rooms/{id}`  
 **Method:** `PUT`  
-**Description:** Update room information by ID. Admin access required.
+**Description:** Update room information by ID. Admin access required. 
 **Request Body:**
 ```json
 {
