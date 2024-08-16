@@ -64,6 +64,8 @@ JWT = jwt-secret-or-private-key
   - [Get All Rooms](#get-all-rooms)
   - [Get Room by ID](#get-room-by-id)
 - [User Endpoints](#user-endpoints)
+  - [Register New User](#register-new-user)
+  - [User Login](#user-login)
   - [Update User by ID](#update-a-user)
   - [Delete User by ID](#delete-a-user)
   - [Get All Users](#get-all-users)
@@ -76,11 +78,7 @@ JWT = jwt-secret-or-private-key
 
 ## Hotel Endpoints
 
-### Create a Hotel
-**Endpoint:** `/api/hotels`  
-**Method:** `POST`  
-**Description:** Create a new hotel.  
-**Request Body:**
+**Hotel Schema:**
 ```
 {
     name: {
@@ -132,6 +130,22 @@ JWT = jwt-secret-or-private-key
     },
 }
 ```
+### Create a Hotel
+**Endpoint:** `/api/hotels`  
+**Method:** `POST`  
+**Description:** Create a new hotel. Admin access required.
+**Request Body:**
+```json
+{
+    "name": "string",
+    "type": "string",
+    "city": "string",
+    "address": "string",
+    "distance": "string",
+    "desc": "string",
+    "cheapestPrice": "number"
+}
+```
 
 ### Get All Hotels
 **Endpoint:** `/api/hotels`  
@@ -144,22 +158,20 @@ JWT = jwt-secret-or-private-key
 **Description:** Retrieve a single hotel by its ID.
 
 
-### Update a Hotel
+### Update Hotel by ID
 **Endpoint:** `/api/hotels/{id}`  
 **Method:** `PUT`  
-**Description:** Update hotel information.  
+**Description:** Update hotel information by ID. Admin access required.
 **Request Body:**
 ```json
 {
   "name": "string",
-  "location": "string",
-  "description": "string",
-  "rating": "integer",
-  "amenities": "array"
+  "address": "string",
+  "desc": "string",
 }
 ```
 
-### Delete a Hotel
+### Delete Hotel by ID
 **Endpoint:** `/api/hotels/{id}`  
 **Method:** `DELETE`  
 **Description:** Delete a hotel by its ID.
@@ -168,18 +180,40 @@ JWT = jwt-secret-or-private-key
 
 ## Room Endpoints
 
+**Room Schema:**
+```
+{
+    title: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    maxPeople: {
+      type: Number,
+      required: true,
+    },
+    desc: {
+      type: String,
+      required: true,
+    },
+    roomNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
+  }
+```
+
 ### Create a Room
-**Endpoint:** `/api/rooms`  
+**Endpoint:** `/api/rooms/{hotelid}`  
 **Method:** `POST`  
-**Description:** Create a new room.  
+**Description:** Create a new room by specifying hotel ID. Admin access required.
 **Request Body:**
 ```json
 {
-  "hotel_id": "integer",
-  "room_number": "string",
-  "type": "string",
+  "title": "string",
   "price": "number",
-  "availability": "boolean"
+  "maxPeople": "number",
+  "desc": "string"
 }
 ```
 
@@ -196,37 +230,84 @@ JWT = jwt-secret-or-private-key
 ### Update a Room
 **Endpoint:** `/api/rooms/{id}`  
 **Method:** `PUT`  
-**Description:** Update room information.  
+**Description:** Update room information by ID. Admin access required.
 **Request Body:**
 ```json
 {
-  "room_number": "string",
-  "type": "string",
-  "price": "number",
-  "availability": "boolean"
+  "price": "number"
 }
 ```
 
-### Delete a Room
-**Endpoint:** `/api/rooms/{id}`  
+### Delete Room by ID
+**Endpoint:** `/api/rooms/{id}/{hotelid}`  
 **Method:** `DELETE`  
-**Description:** Delete a room by its ID.
+**Description:** Delete a room by specifying room ID and hotel ID. Admin access required.
 
 ---
 
 ## User Endpoints
 
-### Create a User
-**Endpoint:** `/api/users`  
+**User Schema:**
+```
+{
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    country: {
+        type: String,
+        required: false,
+    },
+    img: {
+        type: String,
+    },
+    city: {
+        type: String,
+        required: false,
+    },
+    phone: {
+        type: String,
+        required: false,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    }
+}
+```
+
+### Register New User
+**Endpoint:** `/api/auth/register`  
 **Method:** `POST`  
-**Description:** Create a new user.  
+**Description:** Register new users.
 **Request Body:**
 ```json
 {
-  "name": "string",
-  "email": "string",
-  "password": "string",
-  "role": "string"
+    "username": "string",
+    "email": "string",
+    "password": "string"
+}
+```
+
+### User Login
+**Endpoint:** `/api/auth/login`  
+**Method:** `POST`  
+**Description:** User login by providing username and password.
+**Request Body:**
+```json
+{
+    "username": "string",
+    "password": "string"
 }
 ```
 
@@ -240,10 +321,10 @@ JWT = jwt-secret-or-private-key
 **Method:** `GET`  
 **Description:** Retrieve a single user by their ID.
 
-### Update a User
+### Update User by ID
 **Endpoint:** `/api/users/{id}`  
 **Method:** `PUT`  
-**Description:** Update user information.  
+**Description:** Update user information by ID.  
 **Request Body:**
 ```json
 {
@@ -267,7 +348,7 @@ Some endpoints may require authentication using tokens (e.g., JWT). Authenticati
 Example:
 ```json
 {
-  "Authorization": "Bearer {token}"
+  "access_token": "Bearer {token}"
 }
 ```
 
@@ -280,8 +361,8 @@ All errors will be returned with an appropriate HTTP status code and a descripti
 Example:
 ```json
 {
-  "status": 404,
-  "message": "Hotel not found"
+  "status": 500,
+  "message": "Something went wrong"
 }
 ```
 
@@ -289,13 +370,10 @@ Example:
 
 ## Status Codes
 
-- `200 OK`: The request was successful.
-- `201 Created`: The resource was successfully created.
-- `400 Bad Request`: The request could not be understood or was missing required parameters.
-- `401 Unauthorized`: Authentication failed or user does not have permissions for the desired action.
-- `404 Not Found`: Resource not found.
-- `500 Internal Server Error`: An error occurred on the server.
+- `200`: The request was successful.
+- `401`: You are not authenticated. 
+- `403`: You are not authorised.
+- `500`: Something went wrong.
 
 ---
 
-This is a basic skeleton. Depending on the complexity of your API, you can extend this further by adding more details about authentication, pagination, filtering, validation, examples of requests and responses, etc.
