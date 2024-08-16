@@ -1,4 +1,4 @@
-# Hotel Booking and Operations Management System
+# Hotel Booking and Operations Management API
 
 ## Description
 This project is a RESTful API built using a NodeJS server application with ExpressJS framework that will handle various CRUD operations and communicate with a MongoDB NoSQL database cluster using Mongoose. It provides endpoints to handle requests for managing hotels, rooms, and users.
