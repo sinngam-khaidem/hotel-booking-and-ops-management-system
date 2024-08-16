@@ -161,7 +161,7 @@ JWT = jwt-secret-or-private-key
 ### Update Hotel by ID
 **Endpoint:** `/api/hotels/{id}`  
 **Method:** `PUT`  
-**Description:** Update hotel information by ID. Admin access required. 
+**Description:** Update hotel information by ID. Admin access required.  
 **Request Body:**
 ```json
 {
@@ -206,7 +206,7 @@ JWT = jwt-secret-or-private-key
 ### Create a Room
 **Endpoint:** `/api/rooms/{hotelid}`  
 **Method:** `POST`  
-**Description:** Create a new room by specifying hotel ID. Admin access required. 
+**Description:** Create a new room by specifying hotel ID. Admin access required.  
 **Request Body:**
 ```json
 {
@@ -230,7 +230,7 @@ JWT = jwt-secret-or-private-key
 ### Update a Room
 **Endpoint:** `/api/rooms/{id}`  
 **Method:** `PUT`  
-**Description:** Update room information by ID. Admin access required. 
+**Description:** Update room information by ID. Admin access required.  
 **Request Body:**
 ```json
 {
@@ -241,7 +241,7 @@ JWT = jwt-secret-or-private-key
 ### Delete Room by ID
 **Endpoint:** `/api/rooms/{id}/{hotelid}`  
 **Method:** `DELETE`  
-**Description:** Delete a room by specifying room ID and hotel ID. Admin access required.
+**Description:** Delete a room by specifying room ID and hotel ID. Admin access required.  
 
 ---
 
@@ -324,7 +324,7 @@ JWT = jwt-secret-or-private-key
 ### Update User by ID
 **Endpoint:** `/api/users/{id}`  
 **Method:** `PUT`  
-**Description:** Update user information by ID.  
+**Description:** Update user information by ID. Admin access required.  
 **Request Body:**
 ```json
 {
@@ -337,7 +337,7 @@ JWT = jwt-secret-or-private-key
 ### Delete a User
 **Endpoint:** `/api/users/{id}`  
 **Method:** `DELETE`  
-**Description:** Delete a user by their ID.
+**Description:** Delete a user by their ID. Admin access required.  
 
 ---
 
