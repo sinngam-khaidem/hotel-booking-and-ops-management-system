@@ -133,7 +133,7 @@ JWT = jwt-secret-or-private-key
 ### Create a Hotel
 **Endpoint:** `/api/hotels`  
 **Method:** `POST`  
-**Description:** Create a new hotel. Admin access required. 
+**Description:** Create a new hotel. Admin access required.  
 **Request Body:**
 ```json
 {
